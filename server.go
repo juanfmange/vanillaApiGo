@@ -17,6 +17,7 @@ type User struct {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/user/", GetUser).Methods("GET")
+	r.HandleFunc("/user/post/", PostUser).Methods("POST")
 	log.Println("El servidor se encuentra en el puerto 8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
@@ -24,4 +25,13 @@ func main() {
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	user := User{"Juanito", "Mange", 25, "retomando go"}
 	json.NewEncoder(w).Encode(user)
+	log.Println("GET /user")
+
+}
+
+func PostUser(w http.ResponseWriter, r *http.Request) {
+	newUser := User{"paco", "mange", 30, "POST en go"}
+	json.NewEncoder(w).Encode(newUser)
+	log.Println("POST /newUser")
+
 }
